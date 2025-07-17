@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ButtonLink from "../utility/ButtonLink";
 import Button from "../utility/Button";
+import fetchAPI from "../../api/fetchAPI";
 
 function Community() {
   const { id } = useParams();
@@ -20,24 +21,11 @@ function Community() {
     setLoading(true);
     const fetchCommunity = async () => {
       try {
-        let res = await fetch(`https://localhost:5050/communities/${id}`, {
-          credentials: "include",
-        });
-        if (res.ok) {
-          const commData = await res.json();
-          console.log(commData.joined);
-          setCommunity(commData);
-        } else {
-          const error = await res.json();
-          console.error(
-            "Error fetching community data: ",
-            error.errorName,
-            error.errorMessage
-          );
-          setError(error.errorMessage);
-        }
+        let data = await fetchAPI(`/communities/${id}`);
+        setCommunity(data);
       } catch (e) {
         console.error(e);
+        setError(e.errorMessage);
       } finally {
         setLoading(false);
       }
@@ -48,20 +36,12 @@ function Community() {
 
   const onJoin = async () => {
     try {
-      const res = await fetch(
-        `https://localhost:5050/communities/join/${community._id}`,
-        {
-          credentials: "include",
-        }
-      );
-      if (res.ok) {
-        window.location.reload();
-      } else {
-        const data = await res.json();
-        console.error("Error joining: ", data.errorMessage);
-      }
+      const data = await fetchAPI(`/communities/join/${community._id}`, {
+        method: "POST",
+      });
+      window.location.reload();
     } catch (e) {
-      console.error("Error encountered: ", e);
+      console.error("Error encountered: ", e.errorMessage);
     }
   };
 
@@ -91,7 +71,7 @@ function Community() {
             name="Manage"
           />
           {!community.joined &&
-            community.members.length < community.members.capacity && (
+            community.members.length < community.capacity && (
               <Button onClick={onJoin} name="Join" />
             )}
         </div>

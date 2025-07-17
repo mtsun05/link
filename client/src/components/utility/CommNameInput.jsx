@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 
+import fetchAPI from "../../api/fetchAPI";
+
 function CommunityNameInput({ initialName = "" }) {
   const [communityName, setCommunityName] = useState(initialName);
   const [isNameAvailable, setIsNameAvailable] = useState(null);
@@ -21,22 +23,12 @@ function CommunityNameInput({ initialName = "" }) {
     setError(null);
 
     try {
-      const response = await fetch(
-        `https://localhost:5050/communities/check-name?name=${encodeURIComponent(
-          name
-        )}`
+      const data = await fetchAPI(
+        `/communities/check-name?name=${encodeURIComponent(name)}`
       );
-      const data = await response.json();
-
-      if (response.ok) {
-        setIsNameAvailable(data.available);
-      } else {
-        setError(data.message || "Error checking name availability.");
-        setIsNameAvailable(null);
-      }
+      setIsNameAvailable(data.available);
     } catch (e) {
-      console.error("Network or parsing error during name check:", e);
-      setError("Could not connect to server to check name.");
+      setError(e.errorMessage || "Error checking name availability.");
       setIsNameAvailable(null);
     } finally {
       setLoading(false);

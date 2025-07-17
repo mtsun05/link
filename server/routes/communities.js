@@ -54,7 +54,7 @@ router.get("/check-name", async (req, res) => {
   }
 });
 
-router.get("/join/:id", async (req, res) => {
+router.post("/join/:id", async (req, res) => {
   console.log(req.user);
   if (!req.user) {
     return res.status(401).send("User not logged in");
@@ -121,6 +121,7 @@ router.get("/:id", async (req, res) => {
     responseData.joined = result.members.some(
       (member) => member._id.toString() == req.user._id
     );
+    console.log(responseData.joined);
 
     res.status(200).json(responseData);
   } catch (e) {

@@ -20,7 +20,6 @@ import Community from "./components/pages/Community.jsx";
 import CreateEvent from "./components/pages/CreateEvent.jsx";
 import "./index.css";
 
-import { validToken } from "./utils/checkTokenExpiration";
 import { authLoader } from "./loaders/AuthLoader";
 
 const Layout = () => {

@@ -1,5 +1,6 @@
 import React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
+import fetchAPI from "../api/fetchAPI";
 
 const AuthContext = createContext(null);
 
@@ -11,22 +12,16 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch("https://localhost:5050/auth/check", {
-          credentials: "include",
-        });
-        if (response.ok) {
-          const userData = await response.json();
-          if (userData && userData.googleID) {
-            setUser(userData);
-            setLoggedIn(true);
-          } else {
-            setUser(null);
-          }
+        const userData = await fetchAPI("/auth/check");
+        if (userData && userData.googleID) {
+          setUser(userData);
+          setLoggedIn(true);
         } else {
           setUser(null);
         }
-      } catch (error) {
-        console.error("Authentication check failed:", error);
+      } catch (e) {
+        setUser(null);
+        console.error("Authentication check failed:", e.errorMessage);
         setUser(null);
       } finally {
         setLoading(false);

@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 
 import SearchResult from "./SearchResult";
+import fetchAPI from "../../api/fetchAPI";
 
 function CommunitySearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,20 +31,13 @@ function CommunitySearchBar() {
       setError(null);
 
       try {
-        const response = await fetch(
-          `https://localhost:5050/communities/search?q=${encodeURIComponent(
-            debouncedSearchTerm
-          )}`
+        const data = await fetchAPI(
+          `/communities/search?q=${encodeURIComponent(debouncedSearchTerm)}`
         );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        console.log(data);
         setSearchResults(data);
-      } catch (err) {
-        console.error("Failed to fetch search results:", err);
-        setError("Failed to fetch search results. Please try again.");
+      } catch (e) {
+        console.error("Failed to fetch search results:", e.errorMessage);
+        setError(e.errorMessage);
       } finally {
         setLoading(false);
       }

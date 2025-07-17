@@ -1,11 +1,11 @@
-import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useState } from "react";
 
 export default function Dropdown({ name }) {
-  const [selected, setSelected] = React.useState("community-only");
+  const [selected, setSelected] = useState("community-only");
 
   const handleChange = (event) => {
     setSelected(event.target.value);

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import infoIcon from "../../assets/info-icon.svg";
 import CommunityNameInput from "../utility/CommNameInput";
 import Input from "../utility/Input";
+import fetchAPI from "../../api/fetchAPI";
 
 function Create() {
   const navigate = useNavigate();
@@ -26,27 +27,18 @@ function Create() {
     };
 
     try {
-      const res = await fetch(`https://localhost:5050/communities/create`, {
+      const data = await fetchAPI(`/communities/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify(commInfo),
       });
-
-      if (res.ok) {
-        const community = await res.json();
-        console.log("navigating to /id");
-        navigate(`/communities/${community._id}`);
-      } else {
-        const errorData = await res.json();
-        console.error(errorData.errorName);
-        console.error(errorData.errorMessage);
-        navigate(`/`);
-      }
+      console.log("navigating to /id");
+      navigate(`/communities/${data._id}`);
     } catch (e) {
-      console.error("Encountered Error: ", e);
+      console.error(e.errorMessage);
+      navigate(`/`);
     }
   };
   return (

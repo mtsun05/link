@@ -1,25 +1,22 @@
 import { redirect } from "react-router-dom";
+import fetchAPI from "../api/fetchAPI";
 
 export const authLoader = async () => {
   try {
-    const response = await fetch("https://localhost:5050/auth/check", {
-      credentials: "include",
-    });
+    const userData = await fetchAPI("/auth/check");
 
-    if (response.status == 401) {
-      console.log("Auth check failed, redirecting to login.");
-      return redirect("/users/login");
-    }
-
-    const userData = await response.json();
     if (!userData || !userData.googleID) {
       console.log("No user data found, redirecting to login.");
       return redirect("/users/login");
     }
     console.log("AuthLoader: ", userData);
     return userData;
-  } catch (error) {
-    console.error("Error during authLoader:", error);
+  } catch (e) {
+    if (e.status == 401) {
+      console.log("Auth check failed, redirecting to login.");
+      return redirect("/users/login");
+    }
+    console.error("Error during authLoader:", e.errorMessage);
     return redirect("/users/login");
   }
 };

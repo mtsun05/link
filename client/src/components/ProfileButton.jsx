@@ -27,17 +27,16 @@ export default function ProfileButton({ user }) {
   const handleLogout = async () => {
     setAnchorEl(null);
     try {
-      const res = await fetch("https://localhost:5050/auth/logout", {
+      const data = await fetch("/auth/logout", {
         method: "POST",
-        credentials: "include",
       });
-      if (res.ok) {
-        setUser(null);
-        setLoggedIn(false);
-        navigate("/");
-        window.location.reload();
-      }
-    } catch (e) {}
+      setUser(null);
+      setLoggedIn(false);
+      navigate("/");
+      window.location.reload();
+    } catch (e) {
+      console.error("Error logging out: ", e.errorMessage);
+    }
   };
   return (
     <>
