@@ -3,6 +3,7 @@ import React from "react";
 import Input from "../utility/Input";
 import Dropdown from "../utility/Dropdown";
 import Slider from "../utility/Slider";
+import fetchAPI from "../../api/fetchAPI";
 
 const CreateEvent = () => {
   const onSubmit = async () => {
@@ -19,25 +20,16 @@ const CreateEvent = () => {
     };
 
     try {
-      const res = await fetch(`https://localhost:5050/events/create`, {
+      const data = await fetchAPI(`/events/create`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
         body: JSON.stringify(eventInfo),
       });
 
-      if (res.ok) {
-        const event = await res.json();
-        navigate(`/events/${event._id}`);
-      } else {
-        const errorData = await res.json();
-        console.error(errorData.errorName);
-        console.error(errorData.errorMessage);
-        navigate(`/`);
-      }
+      const event = await res.json();
+      navigate(`/events/${event._id}`);
     } catch (e) {
+      console.error(e.errorMessage);
+      navigate(`/`);
       console.error("Encountered Error: ", e);
     }
   };
