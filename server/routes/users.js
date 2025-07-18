@@ -2,7 +2,6 @@ import express from "express";
 import "../services/passport.js";
 
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import Token from "../models/Token.js";
 import passport from "passport";
