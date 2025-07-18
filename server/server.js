@@ -4,11 +4,12 @@ import cors from "cors";
 import https from "https";
 import fs from "fs";
 
+import MongoStore from "connect-mongo";
+import "./db/connection.js";
 import users from "./routes/users.js";
 import auth from "./routes/auth.js";
 import events from "./routes/events.js";
 import communities from "./routes/communities.js";
-import "./db/connection.js";
 import session from "express-session";
 import passport from "passport";
 
@@ -29,6 +30,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.ATLAS_URI,
+      collectionName: "sessions",
+      ttl: 14 * 24 * 60 * 60,
+    }),
     cookie: {
       secure: true,
       httpOnly: true,
