@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import googlelogo from "../../assets/google_logo.png";
+const BASE_API_URL = import.meta.env.VITE_API_URL || "https://localhost:5050";
+const loginURL = `${BASE_API_URL}/auth/google`;
 
 export default function Login() {
   const params = useParams();
@@ -21,7 +23,7 @@ export default function Login() {
 
           <div className="flex flex-col items-center sm:mx-auto sm:w-full sm:max-w-sm">
             <a
-              href="https://localhost:5050/auth/google"
+              href={loginURL}
               className="flex w-2/3 justify-center items-center space-x-2 bg-white px-3 py-2 rounded-sm text-sm/6 font-medium text-black border border-gray-400 shadow-xs hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white text-nowrap"
               role="button"
             >

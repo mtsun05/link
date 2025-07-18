@@ -19,7 +19,7 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: ["https://localhost:5173", "https://link.vercel.app"],
+    origin: ["https://localhost:5173", "https://link-sable-three.vercel.app"],
     credentials: true,
   })
 );
