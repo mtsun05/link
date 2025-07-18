@@ -12,11 +12,13 @@ import "./db/connection.js";
 import session from "express-session";
 import passport from "passport";
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5050;
 const app = express();
+app.set("trust proxy", 1);
+
 app.use(
   cors({
-    origin: "https://localhost:5173",
+    origin: ["https://localhost:5173", "https://link.vercel.app"],
     credentials: true,
   })
 );
@@ -42,11 +44,25 @@ app.use("/auth", auth);
 app.use("/communities", communities);
 app.use("/events", events);
 
-const options = {
-  key: fs.readFileSync("./localhost+2-key.pem"),
-  cert: fs.readFileSync("./localhost+2.pem"),
-};
-
-https.createServer(options, app).listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  try {
+    const options = {
+      key: fs.readFileSync("./localhost+2-key.pem"),
+      cert: fs.readFileSync("./localhost+2.pem"),
+    };
+    https.createServer(options, app).listen(PORT, () => {
+      console.log(`Development HTTPS Server listening on port ${PORT}`);
+    });
+  } catch (error) {
+    console.warn(
+      "Could not start local HTTPS server (missing/invalid SSL certs?). Falling back to HTTP."
+    );
+    app.listen(PORT, () => {
+      console.log(`Development HTTP Server listening on port ${PORT}`);
+    });
+  }
+} else {
+  app.listen(PORT, () => {
+    console.log(`Production HTTP Server listening on port ${PORT}`);
+  });
+}
