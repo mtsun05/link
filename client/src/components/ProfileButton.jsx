@@ -12,6 +12,7 @@ import Logout from "@mui/icons-material/Logout";
 
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import fetchAPI from "../api/fetchAPI";
 
 export default function ProfileButton({ user }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,7 +28,7 @@ export default function ProfileButton({ user }) {
   const handleLogout = async () => {
     setAnchorEl(null);
     try {
-      const data = await fetch("/auth/logout", {
+      const data = await fetchAPI("/auth/logout", {
         method: "POST",
       });
       setUser(null);
@@ -35,7 +36,7 @@ export default function ProfileButton({ user }) {
       navigate("/");
       window.location.reload();
     } catch (e) {
-      console.error("Error logging out: ", e.errorMessage);
+      console.error("Error logging out: ", e.message);
     }
   };
   return (

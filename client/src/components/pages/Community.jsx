@@ -25,7 +25,7 @@ function Community() {
         setCommunity(data);
       } catch (e) {
         console.error(e);
-        setError(e.errorMessage);
+        setError(e.message);
       } finally {
         setLoading(false);
       }
@@ -41,7 +41,7 @@ function Community() {
       });
       window.location.reload();
     } catch (e) {
-      console.error("Error encountered: ", e.errorMessage);
+      console.error("Error encountered: ", e.message);
     }
   };
 

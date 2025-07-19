@@ -28,7 +28,7 @@ function CommunityNameInput({ initialName = "" }) {
       );
       setIsNameAvailable(data.available);
     } catch (e) {
-      setError(e.errorMessage || "Error checking name availability.");
+      setError(e.message || "Error checking name availability.");
       setIsNameAvailable(null);
     } finally {
       setLoading(false);

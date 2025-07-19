@@ -37,17 +37,12 @@ const fetchAPI = async (endpoint, options = {}) => {
     console.log("Fetched data: ", data);
 
     if (!response.ok) {
-      const errorMessage =
-        data?.errorMessage ||
+      const message =
+        data?.message ||
         data?.message ||
         response.statusText ||
         "Unknown error";
-      throw new ApiError(
-        errorMessage,
-        response.status,
-        response.statusText,
-        data
-      );
+      throw new ApiError(message, response.status, response.statusText, data);
     }
 
     return data;

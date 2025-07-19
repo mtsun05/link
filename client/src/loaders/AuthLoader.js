@@ -16,7 +16,7 @@ export const authLoader = async () => {
       console.log("Auth check failed, redirecting to login.");
       return redirect("/users/login");
     }
-    console.error("Error during authLoader:", e.errorMessage);
+    console.error("Error during authLoader:", e.message);
     return redirect("/users/login");
   }
 };

@@ -28,7 +28,7 @@ router.post("/create", async (req, res) => {
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
-      errorMessage: e.message,
+      message: e.message,
     });
   }
 });
@@ -44,7 +44,7 @@ router.get("/:id", async (req, res) => {
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
-      errorMessage: e.message,
+      message: e.message,
     });
   }
 });

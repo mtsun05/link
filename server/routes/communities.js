@@ -29,7 +29,7 @@ router.get("/search", async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       errorName: e.name,
-      errorMessage: e.message,
+      message: e.message,
     });
   }
 });
@@ -49,7 +49,7 @@ router.get("/check-name", async (req, res) => {
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
-      errorMessage: e.message,
+      message: e.message,
     });
   }
 });
@@ -75,7 +75,7 @@ router.post("/join/:id", async (req, res) => {
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
-      errorMessage: e.message,
+      message: e.message,
     });
   }
 });
@@ -104,7 +104,7 @@ router.post("/create", async (req, res) => {
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
-      errorMessage: e.message,
+      message: e.message,
     });
   }
 });
@@ -127,7 +127,7 @@ router.get("/:id", async (req, res) => {
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
-      errorMessage: e.message,
+      message: e.message,
     });
   }
 });

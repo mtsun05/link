@@ -28,7 +28,7 @@ const CreateEvent = () => {
       const event = await res.json();
       navigate(`/events/${event._id}`);
     } catch (e) {
-      console.error(e.errorMessage);
+      console.error(e.message);
       navigate(`/`);
       console.error("Encountered Error: ", e);
     }

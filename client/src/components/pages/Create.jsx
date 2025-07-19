@@ -37,7 +37,7 @@ function Create() {
       console.log("navigating to /id");
       navigate(`/communities/${data._id}`);
     } catch (e) {
-      console.error(e.errorMessage);
+      console.error(e.message);
       navigate(`/`);
     }
   };

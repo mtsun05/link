@@ -36,8 +36,8 @@ function CommunitySearchBar() {
         );
         setSearchResults(data);
       } catch (e) {
-        console.error("Failed to fetch search results:", e.errorMessage);
-        setError(e.errorMessage);
+        console.error("Failed to fetch search results:", e.message);
+        setError(e.message);
       } finally {
         setLoading(false);
       }
