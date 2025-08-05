@@ -3,7 +3,11 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { Input, InputLabel } from "@mui/material";
 
-export default function DiscreteSlider({ name }) {
+function capitalizeFirstLetter(val) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
+export default function DiscreteSlider({ name, min, max }) {
   return (
     <Box
       sx={{
@@ -13,16 +17,18 @@ export default function DiscreteSlider({ name }) {
         margin: "8px",
       }}
     >
-      <InputLabel className="text-white">Capacity</InputLabel>
+      <InputLabel className="text-white">
+        {capitalizeFirstLetter(name)}
+      </InputLabel>
       <Slider
         aria-label="Capacity"
         name={name}
         defaultValue={30}
         valueLabelDisplay="auto"
         shiftStep={30}
-        step={5}
-        min={10}
-        max={100}
+        step={1}
+        min={min}
+        max={max}
       />
     </Box>
   );

@@ -70,6 +70,7 @@ function CommunityNameInput({ initialName = "" }) {
         onChange={handleChange}
         name="name"
         className="text-white font-[helvetica] rounded-md p-1 w-2/3 bg-[#222222] border-2 border-gray-400"
+        required
       />
       {loading && <p>Checking availability...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}

@@ -4,11 +4,12 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
 
-export default function Dropdown({ name }) {
-  const [selected, setSelected] = useState("community-only");
+export default function Dropdown({ label, name, values, onSelectionChange }) {
+  const [selected, setSelected] = useState("");
 
   const handleChange = (event) => {
     setSelected(event.target.value);
+    onSelectionChange(event.target.value);
   };
 
   return (
@@ -17,12 +18,12 @@ export default function Dropdown({ name }) {
       sx={{
         m: 1,
         minWidth: 120,
-        "& .MuiInputLabel-root": { color: "#9CA3AF" },
+        "& .MuiInputLabel-root": { color: "#FFFFFF" },
         "& .MuiOutlinedInput-notchedOutline": { borderColor: "#9CA3AF" },
         "& .MuiSvgIcon-root": { color: "#9CA3AF" },
-        "& .MuiInputBase-input": { color: "#9CA3AF" },
+        "& .MuiInputBase-input": { color: "#FFFFFF" },
 
-        "& .MuiInputLabel-root.Mui-focused": { color: "#9CA3AF" },
+        "& .MuiInputLabel-root.Mui-focused": { color: "#FFFFFF" },
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
           {
             borderColor: "#9CA3AF",
@@ -34,7 +35,7 @@ export default function Dropdown({ name }) {
       size="small"
     >
       <InputLabel className="text-white" id="demo-select-small-label">
-        Join Mode
+        {label}
       </InputLabel>
       <Select
         className="text-white"
@@ -42,7 +43,7 @@ export default function Dropdown({ name }) {
         id={name}
         name={name}
         value={selected}
-        label="Join Mode"
+        label={label}
         onChange={handleChange}
         MenuProps={{
           PaperProps: {
@@ -65,9 +66,14 @@ export default function Dropdown({ name }) {
           },
         }}
       >
-        <MenuItem value={"open"}>Open</MenuItem>
-        <MenuItem value={"community-only"}>Community Only</MenuItem>
-        <MenuItem value={"invite-only"}>Invite Only</MenuItem>
+        {values &&
+          values.map((value) => {
+            return (
+              <MenuItem key={value.name} value={value.name}>
+                {value.label}
+              </MenuItem>
+            );
+          })}
       </Select>
     </FormControl>
   );

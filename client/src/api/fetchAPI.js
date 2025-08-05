@@ -48,7 +48,7 @@ const fetchAPI = async (endpoint, options = {}) => {
     return data;
   } catch (error) {
     if (error instanceof ApiError) {
-      console.error("API Call Error:", error);
+      console.error("API Call Error:", error.message);
       throw error;
     } else {
       console.error("Network or Unexpected Error:", error);

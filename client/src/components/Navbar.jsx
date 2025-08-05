@@ -3,6 +3,7 @@ import lightlogo from "../assets/link-logo-light.svg";
 import { useEffect, useState } from "react";
 import ProfileButton from "./ProfileButton";
 import { useAuth } from "../contexts/AuthContext";
+import HDivider from "./utility/HDivider";
 
 export default function Navbar() {
   const { user, loggedIn, setUser, setLoggedIn } = useAuth();
@@ -10,7 +11,7 @@ export default function Navbar() {
     setLoggedIn(!!user);
   }, []);
   return (
-    <div className="mb-8 border-b-2 border-gray-400">
+    <div className="mb-8">
       <nav className="flex justify-between items-center mb-3">
         <NavLink to="/">
           <img className="m-3 h-10 inline" src={lightlogo}></img>
@@ -26,6 +27,7 @@ export default function Navbar() {
           </NavLink>
         )}
       </nav>
+      <HDivider />
     </div>
   );
 }

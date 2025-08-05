@@ -7,6 +7,7 @@ const eventSchema = new Schema({
   capacity: Number,
   roles: [String],
   time: { start: Date, end: Date },
+  questions: [String],
   join_type: {
     type: String,
     enum: ["open", "community", "invite"],
@@ -15,7 +16,8 @@ const eventSchema = new Schema({
   participants: [
     {
       user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      role: String,
+      role: { type: String },
+      answers: { type: [String] },
     },
   ],
   community: {

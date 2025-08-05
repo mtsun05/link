@@ -22,7 +22,7 @@ const communitySchema = new Schema({
       ref: "User",
     },
   ],
-  privacy: String,
+  privacy: Boolean,
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

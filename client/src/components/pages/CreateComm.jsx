@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import infoIcon from "../../assets/info-icon.svg";
 import CommunityNameInput from "../utility/CommNameInput";
 import Input from "../utility/Input";
+import Slider from "../utility/Slider";
 import fetchAPI from "../../api/fetchAPI";
 
 function Create() {
@@ -22,7 +23,6 @@ function Create() {
     const commInfo = {
       name: formData.get("name"),
       desc: formData.get("desc"),
-      capacity: formData.get("capacity"),
       privacy: on,
     };
 
@@ -53,18 +53,12 @@ function Create() {
               <div className="flex flex-col w-1/2 p-5 items-start">
                 <CommunityNameInput />
 
-                <Input
-                  name="capacity"
-                  label="capacity"
-                  labelName="Capacity: "
-                />
-
                 <Toggle label="Privacy" onToggle={onToggle} on={on} />
                 <span className="flex text-[10px] text-wrap items-center gap-0.5 mt-2">
                   <img className="w-[12px]" src={infoIcon} alt="" />
                   {on
-                    ? "Your community's content is visible to members"
-                    : "Your community's content is visible to anyone"}
+                    ? "Your community's events are visible to members"
+                    : "Your community's events are visible to anyone"}
                 </span>
               </div>
 

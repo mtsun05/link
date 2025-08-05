@@ -1,6 +1,12 @@
 import React from "react";
 
-const Input = ({ name, labelName, type = "text" }) => {
+const Input = ({
+  name,
+  labelName,
+  type = "text",
+  required = false,
+  onChange = () => {},
+}) => {
   return (
     <>
       <div className="m-2 w-full">
@@ -9,19 +15,25 @@ const Input = ({ name, labelName, type = "text" }) => {
           htmlFor={name}
         >
           {labelName}
+          {required && <span className="text-red-400 ml-1">*</span>}
         </label>
         {type === "textarea" ? (
           <textarea
             className="text-white font-medium bg-[#222222] border-2 border-gray-400 p-1 rounded-md w-full h-32"
             name={name}
             id={name}
+            required={required}
           ></textarea>
         ) : (
           <input
-            className="text-white font-[helvetica] bg-[#222222]  border-2 border-gray-400 rounded-md p-1 w-2/3"
+            className="text-white font-[helvetica] bg-[#222222]  border-2 border-gray-400 rounded-md p-1 w-5/6"
             type={type}
             name={name}
             id={name}
+            required={required}
+            onChange={(e) => {
+              onChange(e.target.value);
+            }}
           />
         )}
       </div>

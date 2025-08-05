@@ -14,10 +14,11 @@ import Landing from "./components/pages/Landing.jsx";
 import Signup from "./components/pages/Signup.jsx";
 import Login from "./components/pages/Login.jsx";
 import Dashboard from "./components/pages/Dashboard.jsx";
-import Create from "./components/pages/Create.jsx";
+import CreateComm from "./components/pages/CreateComm.jsx";
 import Join from "./components/pages/Join.jsx";
 import Community from "./components/pages/Community.jsx";
 import CreateEvent from "./components/pages/CreateEvent.jsx";
+import Event from "./components/pages/Event.jsx";
 import "./index.css";
 
 import { authLoader } from "./loaders/AuthLoader";
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
       {
         path: "/communities",
         children: [
-          { path: "create", element: <Create /> },
+          { path: "create", element: <CreateComm /> },
           { path: "join", element: <Join /> },
           { path: ":id", element: <Community /> },
         ],
@@ -76,9 +77,9 @@ const router = createBrowserRouter([
       {
         path: "/events",
         children: [
-          { path: "create", element: <CreateEvent /> },
+          { path: "create/:id", element: <CreateEvent /> },
           { path: "join", element: <Join /> },
-          { path: ":id", element: <Community /> },
+          { path: ":id", element: <Event /> },
         ],
       },
     ],

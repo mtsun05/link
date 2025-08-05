@@ -70,7 +70,7 @@ router.post("/join/:id", async (req, res) => {
     } else {
       result.members.push(req.user._id);
       await result.save();
-      return res.send("Success");
+      return res.json({ member: req.user._id });
     }
   } catch (e) {
     return res.status(500).json({
@@ -124,6 +124,32 @@ router.get("/:id", async (req, res) => {
     console.log(responseData.joined);
 
     res.status(200).json(responseData);
+  } catch (e) {
+    return res.status(500).json({
+      errorName: e.name,
+      message: e.message,
+    });
+  }
+});
+
+router.post("/leave/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const updatedCommunity = await Community.findByIdAndUpdate(
+      id,
+      {
+        $pull: {
+          members: req.user._id,
+          admin: req.user._id,
+        },
+      },
+      { new: true }
+    );
+    console.log("Successfully left");
+    return res.json({
+      message: "Successful",
+      community: updatedCommunity,
+    });
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
