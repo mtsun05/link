@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import fetchAPI from "../../api/fetchAPI";
 import { useAuth } from "../../contexts/AuthContext";
+import { DateTime } from "luxon";
 
 import ButtonLink from "../utility/ButtonLink";
 import Button from "../utility/Button";
-import { DateTime } from "luxon";
 import RegisterModal from "../RegisterModal";
 import MemberList from "../MemberList";
+import HDivider from "../utility/HDivider";
 
 const Event = () => {
   const { id } = useParams();
@@ -100,8 +101,9 @@ const Event = () => {
           <span className="text-5xl font-bold text-white mb-2">
             {event.name}
           </span>
+          <HDivider />
           <span className="text-xl text-white">{event.desc}</span>
-          <span className="text-xl text-white">
+          <span className="text-lg text-neutral-400">
             {"Time: "}
             {DateTime.fromISO(event.time.start, { zone: "utc" })
               .toLocal()
@@ -111,42 +113,42 @@ const Event = () => {
               .toLocal()
               .toLocaleString(DateTime.DATETIME_MED)}
           </span>
-          <span className="text-xl text-white">
+          <span className="text-lg text-neutral-400">
             {Array.isArray(event.participants) ? event.participants.length : 0}/
             {event.capacity || 0} joined
           </span>
+          <div className="flex flex-row mt-4">
+            {!event.joined && event.participants.length < event.capacity ? (
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  handleOpenModal(event);
+                }}
+                name="Register"
+              />
+            ) : (
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  onLeave(event._id);
+                }}
+                name="Leave"
+                red={true}
+              />
+            )}
+            <RegisterModal
+              open={isModalOpen}
+              onClose={handleCloseModal}
+              eventId={event._id}
+              eventName={event.name}
+              availableRoles={event.roles || []}
+              onRegisterSuccess={onJoin}
+              questions={event.questions}
+            />
+          </div>
           <MemberList participants={event.participants} />
-        </div>
-        <div>
-          {!event.joined && event.participants.length < event.capacity ? (
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                handleOpenModal(event);
-              }}
-              name="Register"
-            />
-          ) : (
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                onLeave(event._id);
-              }}
-              name="Leave"
-              red={true}
-            />
-          )}
-          <RegisterModal
-            open={isModalOpen}
-            onClose={handleCloseModal}
-            eventId={event._id}
-            eventName={event.name}
-            availableRoles={event.roles || []}
-            onRegisterSuccess={onJoin}
-            questions={event.questions}
-          />
         </div>
       </div>
     </>

@@ -19,12 +19,16 @@ const CreateEvent = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [error, setError] = useState(null);
   const [roles, setRoles] = useState([]);
   const [teams, setTeams] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [dropdownSelection, setDropdownSelection] = useState(null);
+  const [roleCounts, setRoleCounts] = useState(
+    Array(roles && roles.length).fill(0)
+  );
 
   const values = [
     { name: "open", label: "Open" },
@@ -36,10 +40,29 @@ const CreateEvent = () => {
     setDropdownSelection(newValue);
   };
 
+  const handleRoleCountChange = (index, value) => {
+    setRoleCounts((prevRoleCounts) => {
+      const newRoleCounts = [...prevRoleCounts];
+      newRoleCounts[index] = value;
+      return newRoleCounts;
+    });
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    setError(null);
     const formData = new FormData(e.target);
+    const roleSum = roleCounts.reduce(
+      (sum, current) => sum + Number(current),
+      0
+    );
+    const team_size = formData.get("team-size");
+    console.log(roleSum);
+    if (roleSum != team_size) {
+      setError("Sum of role counts must equal team size");
+      return;
+    }
 
     const eventInfo = {
       name: formData.get("name"),
@@ -50,6 +73,12 @@ const CreateEvent = () => {
       join_type: dropdownSelection,
       time: { start: startDate.toUTC().toISO(), end: endDate.toUTC().toISO() },
       community: id,
+      teams: teams
+        ? {
+            team_size: formData.get("team-size"),
+            role_counts: roleCounts,
+          }
+        : null,
     };
 
     try {
@@ -108,11 +137,16 @@ const CreateEvent = () => {
               teams ? "w-2/3" : "w-1/2"
             }`}
           >
+            {error && (
+              <div className="bg-red-600 text-red-300 m-2 rounded-md p-1 text-center">
+                {error}
+              </div>
+            )}
             <form className="flex flex-col px-7 py-4" onSubmit={onSubmit}>
               <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-col w-1/2 p-5 items-start">
                   <Input name="name" label="name" labelName="Name: " />
-                  <Slider name="capacity" min={10} max={100} />
+                  <Slider name="capacity" label="Capacity" min={10} max={100} />
                   <AddInput
                     name="Roles: "
                     values={roles}
@@ -184,7 +218,7 @@ const CreateEvent = () => {
                       className="w-4 h-4 my-4 text-blue-600 bg-gray-100 border-gray-300 rounded-md focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 "
                     />
                     <label
-                      for="default-checkbox"
+                      htmlFor="default-checkbox"
                       className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                     >
                       Teams
@@ -197,27 +231,35 @@ const CreateEvent = () => {
                     <div className="w-[1px] bg-gray-400 mx-4 self-stretch" />
                     <div className="flex flex-col">
                       <div className="flex flex-col w-1/2 pl-4 items-start p-5 color-white">
-                        <Slider name="team size" min={2} max={10} />
+                        <Slider
+                          name="team-size"
+                          label="Team Size"
+                          min={2}
+                          max={10}
+                        />
                       </div>
                       <div className="flex flex-col">
-                        {roles.map((role) => {
+                        {roles.map((role, index) => {
                           return (
-                            <>
-                              <label
-                                key={`${role.toLowerCase()}-label`}
-                                htmlFor="role-count"
-                              >
-                                {role}:
-                              </label>
+                            <div
+                              className="flex flex-col"
+                              key={`${role.toLowerCase()}-label`}
+                            >
+                              <label htmlFor="role-count">{role}:</label>
                               <input
                                 defaultValue={0}
-                                key={`${role.toLowerCase()}-input`}
                                 className="border-2 border-gray-400 rounded-md w-1/2 p-1"
                                 type="number"
                                 name="role-count"
                                 id={role.toLowerCase()}
+                                onChange={(e) =>
+                                  handleRoleCountChange(
+                                    index,
+                                    Number(e.target.value)
+                                  )
+                                }
                               />
-                            </>
+                            </div>
                           );
                         })}
                       </div>

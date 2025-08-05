@@ -7,7 +7,7 @@ function capitalizeFirstLetter(val) {
   return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
 
-export default function DiscreteSlider({ name, min, max }) {
+export default function DiscreteSlider({ name, label, min, max }) {
   return (
     <Box
       sx={{
@@ -17,9 +17,7 @@ export default function DiscreteSlider({ name, min, max }) {
         margin: "8px",
       }}
     >
-      <InputLabel className="text-white">
-        {capitalizeFirstLetter(name)}
-      </InputLabel>
+      <InputLabel className="text-white">{label}</InputLabel>
       <Slider
         aria-label="Capacity"
         name={name}
