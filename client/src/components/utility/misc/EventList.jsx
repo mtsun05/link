@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import fetchAPI from "../api/fetchAPI";
+import fetchAPI from "@/api/fetchAPI";
 import { DateTime } from "luxon";
-import Button from "./utility/Button";
+import Button from "../buttons/Button";
 import RegisterModal from "./RegisterModal";
-import timeFormat from "../util/timeFormatter";
-import Error from "./pages/Error";
-import { useAuth } from "../contexts/AuthContext";
+import timeFormat from "@/util/timeFormatter";
+import Error from "../../pages/Error";
+import { useAuth } from "@/contexts/AuthContext";
 
 const EventList = ({ id, joined }) => {
   const [error, setError] = useState(null);

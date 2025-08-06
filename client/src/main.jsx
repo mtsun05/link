@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import { AuthProvider } from "./contexts/AuthContext.jsx";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/utility/misc/Navbar.jsx";
 import Landing from "./components/pages/Landing.jsx";
 import Signup from "./components/pages/Signup.jsx";
 import Login from "./components/pages/Login.jsx";

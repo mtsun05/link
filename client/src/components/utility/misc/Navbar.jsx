@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import lightlogo from "../assets/link-logo-light.svg";
+import lightlogo from "@/assets/link-logo-light.svg";
 import { useEffect, useState } from "react";
-import ProfileButton from "./ProfileButton";
-import { useAuth } from "../contexts/AuthContext";
-import HDivider from "./utility/HDivider";
+import ProfileButton from "../buttons/ProfileButton";
+import { useAuth } from "../../../contexts/AuthContext";
+import HDivider from "./HDivider";
 
 export default function Navbar() {
   const { user, loggedIn, setUser, setLoggedIn } = useAuth();

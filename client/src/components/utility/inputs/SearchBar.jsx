@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useDebounce from "../../hooks/useDebounce";
+import useDebounce from "@/hooks/useDebounce";
 import {
   Box,
   TextField,
@@ -9,8 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 
-import SearchResult from "./SearchResult";
-import fetchAPI from "../../api/fetchAPI";
+import SearchResult from "../misc/SearchResult";
+import fetchAPI from "@/api/fetchAPI";
 
 function CommunitySearchBar() {
   const [searchTerm, setSearchTerm] = useState("");

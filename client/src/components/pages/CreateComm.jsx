@@ -1,10 +1,10 @@
-import Toggle from "../utility/Toggle";
+import Toggle from "../utility/inputs/Toggle";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import infoIcon from "../../assets/info-icon.svg";
-import CommunityNameInput from "../utility/CommNameInput";
-import Input from "../utility/Input";
-import Slider from "../utility/Slider";
+import infoIcon from "@/assets/info-icon.svg";
+import CommunityNameInput from "../utility/inputs/CommNameInput";
+import Input from "../utility/inputs/Input";
+import Slider from "../utility/inputs/Slider";
 import fetchAPI from "../../api/fetchAPI";
 
 function Create() {

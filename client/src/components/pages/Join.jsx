@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "../utility/Input";
-import CommunitySearchBar from "../utility/SearchBar";
+import Input from "../utility/inputs/Input";
+import CommunitySearchBar from "../utility/inputs/SearchBar";
 
 function Join() {
   const onSubmit = async () => {};

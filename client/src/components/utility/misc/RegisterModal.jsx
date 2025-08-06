@@ -14,9 +14,9 @@ import {
   Typography,
 } from "@mui/material";
 
-import fetchAPI from "../api/fetchAPI";
-import Input from "./utility/Input";
-import Dropdown from "./utility/Dropdown";
+import fetchAPI from "../../../api/fetchAPI";
+import Input from "../inputs/Input";
+import Dropdown from "../inputs/Dropdown";
 
 const RegisterModal = ({
   open,

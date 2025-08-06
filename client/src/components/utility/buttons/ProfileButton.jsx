@@ -10,9 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import fetchAPI from "../api/fetchAPI";
+import fetchAPI from "../../../api/fetchAPI";
 
 export default function ProfileButton({ user }) {
   const [anchorEl, setAnchorEl] = useState(null);

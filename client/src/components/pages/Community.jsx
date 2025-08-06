@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import fetchAPI from "../../api/fetchAPI";
 import { useAuth } from "../../contexts/AuthContext";
 
-import ButtonLink from "../utility/ButtonLink";
-import Button from "../utility/Button";
-import EventList from "../EventList";
-import HDivider from "../utility/HDivider";
-import VDivider from "../utility/VDivider";
+import ButtonLink from "../utility/buttons/ButtonLink";
+import Button from "../utility/buttons/Button";
+import EventList from "../utility/misc/EventList";
+import HDivider from "../utility/misc/HDivider";
+import VDivider from "../utility/misc/VDivider";
 
 function Community() {
   const { id } = useParams();

@@ -4,11 +4,11 @@ import fetchAPI from "../../api/fetchAPI";
 import { useAuth } from "../../contexts/AuthContext";
 import { DateTime } from "luxon";
 
-import ButtonLink from "../utility/ButtonLink";
-import Button from "../utility/Button";
-import RegisterModal from "../RegisterModal";
-import MemberList from "../MemberList";
-import HDivider from "../utility/HDivider";
+import ButtonLink from "../utility/buttons/ButtonLink";
+import Button from "../utility/buttons/Button";
+import RegisterModal from "../utility/misc/RegisterModal";
+import MemberList from "../utility/misc/MemberList";
+import HDivider from "../utility/misc/HDivider";
 
 const Event = () => {
   const { id } = useParams();

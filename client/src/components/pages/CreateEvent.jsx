@@ -3,10 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import fetchAPI from "../../api/fetchAPI";
 import { useState, useEffect } from "react";
 
-import Input from "../utility/Input";
-import Dropdown from "../utility/Dropdown";
-import Slider from "../utility/Slider";
-import AddInput from "../utility/AddInput";
+import Input from "../utility/inputs/Input";
+import Dropdown from "../utility/inputs/Dropdown";
+import Slider from "../utility/inputs/Slider";
+import AddInput from "../utility/inputs/AddInput";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";

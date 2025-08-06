@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 
-import fetchAPI from "../../api/fetchAPI";
+import fetchAPI from "@/api/fetchAPI";
 
 function CommunityNameInput({ initialName = "" }) {
   const [communityName, setCommunityName] = useState(initialName);

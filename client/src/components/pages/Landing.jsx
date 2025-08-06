@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ButtonLink from "../utility/ButtonLink";
+import ButtonLink from "../utility/buttons/ButtonLink";
 
 export default function Landing() {
   return (
