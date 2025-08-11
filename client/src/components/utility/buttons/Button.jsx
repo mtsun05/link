@@ -7,17 +7,21 @@ const Button = ({
   red = false,
   ...props
 }) => {
+  const { className: extraClasses = "", ...restProps } = props;
+
+  const baseClasses = `p-2 text-lg font-bold border-hidden rounded-md cursor-pointer w-fit h-fit hover:shadow-sm hover:scale-105 transition duration-200`;
+
+  const conditionalClasses = red
+    ? "bg-[#e31717] text-white hover:shadow-[#e31717]"
+    : "bg-white text-[#2921cc] hover:shadow-neutral-200";
+
   return (
     <>
       {!disabled ? (
         <button
           onClick={onClick}
-          className={`p-2 text-lg font-bold border-hidden rounded-md cursor-pointer w-fit h-fit hover:shadow-sm hover:scale-105 transition duration-200 ${
-            red
-              ? "bg-[#e31717] text-white hover:shadow-[#e31717]"
-              : "bg-white text-[#2921cc] hover:shadow-neutral-200"
-          }`}
-          {...props}
+          className={`${baseClasses} ${conditionalClasses} ${extraClasses}`}
+          {...restProps}
         >
           {name}
         </button>

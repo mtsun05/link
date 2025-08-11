@@ -6,17 +6,17 @@ const timeFormat = (start, end) => {
 
   if (luxonStart.hasSame(luxonEnd, "day")) {
     return (
-      luxonStart.toLocaleString(DateTime.DATE_MED) +
+      luxonStart.toLocal().toLocaleString(DateTime.DATE_MED) +
       ", " +
-      luxonStart.toLocaleString(DateTime.TIME_SIMPLE) +
+      luxonStart.toLocal().toLocaleString(DateTime.TIME_SIMPLE) +
       " - " +
-      luxonEnd.toLocaleString(DateTime.TIME_SIMPLE)
+      luxonEnd.toLocal().toLocaleString(DateTime.TIME_SIMPLE)
     );
   } else {
     return (
-      luxonStart.toLocaleString(DateTime.DATETIME_MED) +
+      luxonStart.toLocal().toLocaleString(DateTime.DATETIME_MED) +
       " - " +
-      luxonEnd.toLocaleString(DateTime.DATETIME_MED)
+      luxonEnd.toLocal().toLocaleString(DateTime.DATETIME_MED)
     );
   }
 };

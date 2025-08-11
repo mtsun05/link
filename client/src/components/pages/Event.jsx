@@ -96,8 +96,8 @@ const Event = () => {
 
   return (
     <>
-      <div className="flex flex-row mx-5">
-        <div className="flex flex-col">
+      <div className="flex flex-row container mx-auto justify-center p-8 md:flex space-around">
+        <div className="flex flex-col p-5">
           <span className="text-5xl font-bold text-white mb-2">
             {event.name}
           </span>
@@ -148,6 +148,8 @@ const Event = () => {
               questions={event.questions}
             />
           </div>
+        </div>
+        <div className="flex justify-end mx-5 p-5">
           <MemberList participants={event.participants} />
         </div>
       </div>

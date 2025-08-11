@@ -5,7 +5,7 @@ const MemberList = ({ participants }) => {
     Array.isArray(participants) && participants.length > 0;
 
   return (
-    <div className="p-6 rounded-lg shadow-xl border border-gray-700 my-8">
+    <div className="p-3 rounded-lg shadow-xl border border-gray-700">
       <h3 className="text-3xl font-bold text-white mb-6 border-b pb-4 border-gray-600 text-center">
         Event Participants
       </h3>

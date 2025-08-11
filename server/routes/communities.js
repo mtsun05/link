@@ -5,29 +5,6 @@ import Community from "../models/Community.js";
 
 const router = express.Router();
 
-router.get("/:id", async (req, res) => {
-  console.log("/:id hit");
-  try {
-    const result = await Community.findOne({ _id: req.params.id })
-      .populate("creator")
-      .populate("members")
-      .populate("admins")
-      .exec();
-    const responseData = result.toObject();
-    responseData.joined = result.members.some(
-      (member) => member._id.toString() == req.user._id
-    );
-    console.log(responseData.joined);
-
-    res.status(200).json(responseData);
-  } catch (e) {
-    return res.status(500).json({
-      errorName: e.name,
-      message: e.message,
-    });
-  }
-});
-
 router.get("/search", async (req, res) => {
   try {
     const searchTerm = req.query.q;
@@ -50,6 +27,29 @@ router.get("/search", async (req, res) => {
 
     res.status(200).json(communities);
   } catch (error) {
+    return res.status(500).json({
+      errorName: e.name,
+      message: e.message,
+    });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  console.log("/:id hit");
+  try {
+    const result = await Community.findOne({ _id: req.params.id })
+      .populate("creator")
+      .populate("members")
+      .populate("admins")
+      .exec();
+    const responseData = result.toObject();
+    responseData.joined = result.members.some(
+      (member) => member._id.toString() == req.user._id
+    );
+    console.log(responseData.joined);
+
+    res.status(200).json(responseData);
+  } catch (e) {
     return res.status(500).json({
       errorName: e.name,
       message: e.message,

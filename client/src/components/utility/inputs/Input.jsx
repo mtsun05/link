@@ -9,7 +9,7 @@ const Input = ({
 }) => {
   return (
     <>
-      <div className="m-2 w-full">
+      <div className="my-2 w-full">
         <label
           className="block text-md font-medium text-slate-100"
           htmlFor={name}
