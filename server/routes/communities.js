@@ -5,6 +5,29 @@ import Community from "../models/Community.js";
 
 const router = express.Router();
 
+router.get("/:id", async (req, res) => {
+  console.log("/:id hit");
+  try {
+    const result = await Community.findOne({ _id: req.params.id })
+      .populate("creator")
+      .populate("members")
+      .populate("admins")
+      .exec();
+    const responseData = result.toObject();
+    responseData.joined = result.members.some(
+      (member) => member._id.toString() == req.user._id
+    );
+    console.log(responseData.joined);
+
+    res.status(200).json(responseData);
+  } catch (e) {
+    return res.status(500).json({
+      errorName: e.name,
+      message: e.message,
+    });
+  }
+});
+
 router.get("/search", async (req, res) => {
   try {
     const searchTerm = req.query.q;
@@ -54,32 +77,6 @@ router.get("/check-name", async (req, res) => {
   }
 });
 
-router.post("/join/:id", async (req, res) => {
-  console.log(req.user);
-  if (!req.user) {
-    return res.status(401).send("User not logged in");
-  }
-  try {
-    const result = await Community.findOne({ _id: req.params.id })
-      .populate("members")
-      .exec();
-    if (
-      result.members.some((member) => member._id.toString() == req.user._id)
-    ) {
-      return res.status(409).send("User already in community");
-    } else {
-      result.members.push(req.user._id);
-      await result.save();
-      return res.json({ member: req.user._id });
-    }
-  } catch (e) {
-    return res.status(500).json({
-      errorName: e.name,
-      message: e.message,
-    });
-  }
-});
-
 router.post("/create", async (req, res) => {
   console.log("/create hit");
   const commInfo = req.body;
@@ -109,21 +106,27 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  console.log("/:id hit");
+router.post("/join/:id", async (req, res) => {
+  console.log(req.user);
+  if (!req.user) {
+    return res.status(401).send("User not logged in");
+  }
   try {
     const result = await Community.findOne({ _id: req.params.id })
-      .populate("creator")
       .populate("members")
-      .populate("admins")
       .exec();
-    const responseData = result.toObject();
-    responseData.joined = result.members.some(
-      (member) => member._id.toString() == req.user._id
-    );
-    console.log(responseData.joined);
-
-    res.status(200).json(responseData);
+    if (
+      result.members.some((member) => member._id.toString() == req.user._id)
+    ) {
+      return res.status(409).send("User already in community");
+    } else {
+      if (result.members.length == 0) {
+        result.admins.push(req.user._id);
+      }
+      result.members.push(req.user._id);
+      await result.save();
+      return res.json({ member: req.user._id });
+    }
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
@@ -140,7 +143,7 @@ router.post("/leave/:id", async (req, res) => {
       {
         $pull: {
           members: req.user._id,
-          admin: req.user._id,
+          admins: req.user._id,
         },
       },
       { new: true }

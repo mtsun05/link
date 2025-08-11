@@ -95,33 +95,32 @@ const CreateEvent = () => {
   };
 
   const datePickerStyles = {
-    "& .MuiInputBase-root": {
-      color: "white !important",
-      backgroundColor: "transparent",
-    },
-    "& .MuiInputBase-input": {
-      color: "white !important",
-    },
-    "& .MuiInputLabel-root": {
-      color: "rgb(156 163 175)",
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "white",
-    },
     "& .MuiOutlinedInput-root": {
+      color: "white",
       "& fieldset": {
-        borderColor: "rgb(156 163 175) !important",
+        borderColor: "white !important",
       },
       "&:hover fieldset": {
         borderColor: "white !important",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "rgb(99 102 241) !important",
-        borderWidth: "2px",
+        borderColor: "white !important",
+      },
+      "& input": {
+        color: "white !important",
       },
     },
-    "& .MuiSvgIcon-root": {
+    "& .MuiInputLabel-root": {
       color: "white !important",
+      "&.Mui-focused": {
+        color: "white !important",
+      },
+    },
+    "& .MuiIconButton-root": {
+      color: "white",
+    },
+    "& .MuiSvgIcon-root": {
+      color: "white",
     },
   };
 
@@ -167,7 +166,7 @@ const CreateEvent = () => {
 
                 <div className="w-[1px] bg-gray-400 mx-4 self-stretch" />
 
-                <div className="flex flex-col w-1/2 pl-4 items-start p-5 color-white">
+                <div className="flex flex-col w-1/2 pl-4 items-start p-5">
                   <Input
                     name="desc"
                     label="desc"
@@ -206,7 +205,7 @@ const CreateEvent = () => {
                     />
                   </Box>
 
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-center mb-4 pl-4">
                     <input
                       type="checkbox"
                       id="teams"
@@ -230,7 +229,7 @@ const CreateEvent = () => {
                   <>
                     <div className="w-[1px] bg-gray-400 mx-4 self-stretch" />
                     <div className="flex flex-col">
-                      <div className="flex flex-col w-1/2 pl-4 items-start p-5 color-white">
+                      <div className="flex flex-col w-1/2 items-start p-5 color-white">
                         <Slider
                           name="team-size"
                           label="Team Size"
@@ -238,7 +237,7 @@ const CreateEvent = () => {
                           max={10}
                         />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col p-5">
                         {roles.map((role, index) => {
                           return (
                             <div
@@ -248,7 +247,7 @@ const CreateEvent = () => {
                               <label htmlFor="role-count">{role}:</label>
                               <input
                                 defaultValue={0}
-                                className="border-2 border-gray-400 rounded-md w-1/2 p-1"
+                                className="border-1 border-gray-400 rounded-md w-1/2 p-1"
                                 type="number"
                                 name="role-count"
                                 id={role.toLowerCase()}

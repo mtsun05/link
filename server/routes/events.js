@@ -29,6 +29,27 @@ router.get("/community/:id", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const result = await Event.findOne({ _id: req.params.id })
+      .populate("participants.user")
+      .populate("community")
+      .exec();
+
+    const responseData = result.toObject();
+    responseData.joined = result.participants.some(
+      (person) => person.user.toString() == req.user._id
+    );
+    console.log(responseData.participants);
+    res.status(200).json(responseData);
+  } catch (e) {
+    return res.status(500).json({
+      errorName: e.name,
+      message: e.message,
+    });
+  }
+});
+
 router.post("/create", async (req, res) => {
   const eventInfo = req.body;
   try {
@@ -49,27 +70,6 @@ router.post("/create", async (req, res) => {
     });
 
     res.status(200).json(event);
-  } catch (e) {
-    return res.status(500).json({
-      errorName: e.name,
-      message: e.message,
-    });
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-    const result = await Event.findOne({ _id: req.params.id })
-      .populate("participants.user")
-      .populate("community")
-      .exec();
-
-    const responseData = result.toObject();
-    responseData.joined = result.participants.some(
-      (person) => person.user.toString() == req.user._id
-    );
-    console.log(responseData.participants);
-    res.status(200).json(responseData);
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,

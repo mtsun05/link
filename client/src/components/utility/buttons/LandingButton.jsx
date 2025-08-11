@@ -5,7 +5,7 @@ const ButtonLink = ({ name, path }) => {
   return (
     <>
       <Link
-        className="p-2 text-lg font-bold border-hidden rounded-md bg-white text-[#2921cc] cursor-pointer w-fit h-fit  hover:scale-105 hover:shadow-sm hover:shadow-white transition duration-200"
+        className="p-3 mx-2 text-xl border-hidden font-semibold rounded-xl bg-white hover:scale-105 hover:shadow-md hover:shadow-neutral-200 transition duration-200 text-[#2921cc] cursor-pointer w-fit h-fit"
         to={path}
       >
         {name}

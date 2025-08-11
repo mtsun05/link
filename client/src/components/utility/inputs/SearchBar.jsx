@@ -74,7 +74,7 @@ function CommunitySearchBar() {
       {error && <Typography sx={{ mt: 2, color: "red" }}>{error}</Typography>}
       {searchResults.length > 0 && (
         <div className="flex flex-row">
-          <ul className="w-full p-3 border-x border-b border-gray-400">
+          <ul className="w-full p-3 border-x border-b border-gray-400 rounded-md">
             {searchResults.map((community) => (
               <SearchResult key={community._id} community={community} />
             ))}

@@ -5,17 +5,19 @@ const Button = ({
   onClick = () => {},
   disabled = false,
   red = false,
+  ...props
 }) => {
   return (
     <>
       {!disabled ? (
         <button
           onClick={onClick}
-          className={`p-2 text-lg text-black font-bold border-hidden rounded-md cursor-pointer w-fit h-fit ${
+          className={`p-2 text-lg font-bold border-hidden rounded-md cursor-pointer w-fit h-fit hover:shadow-sm hover:scale-105 transition duration-200 ${
             red
-              ? "bg-red-500 hover:bg-red-400 transition duration-150 ease-in-out"
-              : "bg-white hover:bg-neutral-400 transition duration-150 ease-in-out"
+              ? "bg-[#e31717] text-white hover:shadow-[#e31717]"
+              : "bg-white text-[#2921cc] hover:shadow-neutral-200"
           }`}
+          {...props}
         >
           {name}
         </button>

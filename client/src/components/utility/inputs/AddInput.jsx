@@ -28,14 +28,14 @@ const AddInput = ({ name, values, setValues }) => {
     <>
       <div className="m-2 w-full">
         <label
-          className="block text-md font-medium text-slate-100 mb-2"
+          className="block text-md font-medium text-slate-100"
           htmlFor="new-value-input"
         >
           {name}
         </label>
         <div className="flex items-center gap-2 mb-2">
           <input
-            className="text-white font-[helvetica] bg-[#222222] border-2 border-gray-400 rounded-md p-1 w-5/6"
+            className="text-white font-[helvetica] border-1 border-gray-400 rounded-md p-1 w-5/6"
             type="text"
             name="new-value-input"
             id="new-value-input"

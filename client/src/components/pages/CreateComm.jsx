@@ -1,11 +1,13 @@
-import Toggle from "../utility/inputs/Toggle";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import fetchAPI from "../../api/fetchAPI";
+
 import infoIcon from "@/assets/info-icon.svg";
+import Toggle from "../utility/inputs/Toggle";
 import CommunityNameInput from "../utility/inputs/CommNameInput";
 import Input from "../utility/inputs/Input";
 import Slider from "../utility/inputs/Slider";
-import fetchAPI from "../../api/fetchAPI";
+import Button from "../utility/buttons/Button";
 
 function Create() {
   const navigate = useNavigate();
@@ -47,40 +49,27 @@ function Create() {
         <span className="m-8 text-center text-5xl/9 font-bold tracking-tight text-slate-100">
           Create your community
         </span>
-        <div className="text-slate-100 font-[helvetica] border-2 border-gray-400 rounded-lg w-1/2 pb-5">
+        <div className="text-slate-100 font-[helvetica] bg-[#1d1f24] rounded-lg w-fit pb-5">
           <form className="flex flex-col px-7 py-4" onSubmit={onSubmit}>
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex flex-col w-1/2 p-5 items-start">
-                <CommunityNameInput />
+            <div className="flex flex-col p-5 items-start">
+              <CommunityNameInput />
 
-                <Toggle label="Privacy" onToggle={onToggle} on={on} />
-                <span className="flex text-[10px] text-wrap items-center gap-0.5 mt-2">
-                  <img className="w-[12px]" src={infoIcon} alt="" />
-                  {on
-                    ? "Your community's events are visible to members"
-                    : "Your community's events are visible to anyone"}
-                </span>
-              </div>
-
-              <div className="w-[1px] bg-gray-400 mx-4 self-stretch" />
-
-              <div className="flex flex-col w-1/2 pl-4 items-start p-5">
-                <Input
-                  name="desc"
-                  label="desc"
-                  labelName="Description"
-                  type="textarea"
-                />
-              </div>
+              <Toggle label="Privacy" onToggle={onToggle} on={on} />
+              <span className="flex text-[10px] text-wrap items-center gap-0.5 mt-2">
+                <img className="w-[12px]" src={infoIcon} alt="" />
+                {on
+                  ? "Your community's events are visible to members"
+                  : "Your community's events are visible to anyone"}
+              </span>
+              <Input
+                name="desc"
+                label="desc"
+                labelName="Description"
+                type="textarea"
+              />
             </div>
             <div className="mt-5 w-full ">
-              <button
-                type="submit"
-                onSubmit={onSubmit}
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-bold text-white shadow-xs hover:bg-indigo-500 hover:cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Create
-              </button>
+              <Button name="Create" onClick={onSubmit} />
             </div>
           </form>
         </div>

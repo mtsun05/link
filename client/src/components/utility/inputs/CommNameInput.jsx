@@ -56,11 +56,8 @@ function CommunityNameInput({ initialName = "" }) {
   };
 
   return (
-    <>
-      <label
-        className="block text-md font-medium text-slate-100"
-        htmlFor="communityName"
-      >
+    <div className="my-3 w-full">
+      <label className="cursor-pointer" htmlFor="communityName">
         Community Name:
       </label>
       <input
@@ -69,7 +66,7 @@ function CommunityNameInput({ initialName = "" }) {
         value={communityName}
         onChange={handleChange}
         name="name"
-        className="text-white font-[helvetica] rounded-md p-1 w-2/3 bg-[#222222] border-2 border-gray-400"
+        className="text-white font-[helvetica] rounded-md p-1 w-full border-1 border-gray-400"
         required
       />
       {loading && <p>Checking availability...</p>}
@@ -79,7 +76,7 @@ function CommunityNameInput({ initialName = "" }) {
           {isNameAvailable ? "Name is available!" : "Name is already taken."}
         </p>
       )}
-    </>
+    </div>
   );
 }
 

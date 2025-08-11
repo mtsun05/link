@@ -79,6 +79,9 @@ function Community() {
           members: community.members.filter(
             (p) => p.toString() !== userID.toString()
           ),
+          admins: community.admins.filter(
+            (p) => p.toString() !== userID.toString()
+          ),
           joined: false,
         };
       });
@@ -92,64 +95,61 @@ function Community() {
   if (error) return <div>Error found: {error} </div>;
 
   return (
-    <>
-      <div className="flex flex-row items-start m-5 w-1/2">
-        <div className="flex flex-col">
-          <span className="text-5xl text-white font-bold">
-            {community.name}
-          </span>
-          <HDivider />
-          <span className="text-xl text-white font-sans">{community.desc}</span>
-          <span className="text-lg text-neutral-400">
-            {Array.isArray(community.members) ? community.members.length : 0}{" "}
-            member{community.members.length > 1 ? "s" : ""}
-          </span>
+    <div className="container mx-auto p-8 md:flex md:space-between">
+      <div className="flex flex-col md:w-1/2">
+        <span className="text-5xl text-white font-bold">{community.name}</span>
+        <HDivider />
+        <span className="text-xl text-white font-sans">{community.desc}</span>
+        <span className="text-lg text-neutral-400">
+          {Array.isArray(community.members) ? community.members.length : 0}{" "}
+          member{community.members.length != 1 ? "s" : ""}
+        </span>
 
-          <span className="text-lg text-neutral-400 mb-4">
-            Admins:{" "}
-            {Array.isArray(community.admins) && community.admins.length > 0
-              ? community.admins[0].name
-              : ""}
-          </span>
-          <div className="flex flex-row space-x-2 space-y-2">
-            {isAdmin && (
-              <>
-                <ButtonLink
-                  path={`/communities/manage/${community._id}`}
-                  name="Manage"
-                />
-                <ButtonLink
-                  path={`/events/create/${community._id}`}
-                  name="Create Event"
-                />
-              </>
-            )}
-            {!community.joined &&
-            community.members.length < community.capacity ? (
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  onJoin();
-                }}
-                name="Join"
+        <span className="text-lg text-neutral-400 mb-4">
+          Admins:{" "}
+          {Array.isArray(community.admins) && community.admins.length > 0
+            ? community.admins[0].name
+            : "None"}
+        </span>
+        <div className="flex flex-row space-x-2 space-y-2">
+          {isAdmin && (
+            <>
+              <ButtonLink
+                path={`/communities/manage/${community._id}`}
+                name="Manage"
               />
-            ) : (
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  onLeave();
-                }}
-                name="Leave"
-                red={true}
+              <ButtonLink
+                path={`/events/create/${community._id}`}
+                name="Create Event"
               />
-            )}
-          </div>
+            </>
+          )}
+          {!community.joined ? (
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onJoin();
+              }}
+              name="Join"
+            />
+          ) : (
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onLeave();
+              }}
+              name="Leave"
+              red={true}
+            />
+          )}
         </div>
       </div>
-      <div className="flex flex-col m-5">
-        <span className="text-3xl text-white font-bold">Events</span>
+      <VDivider className="hidden md:block" />
+      <div className="flex flex-col md:w-1/2 mt-8 md:mt-0">
+        <span className="text-5xl text-white font-bold">Events</span>
+        <HDivider />
         {!community.privacy ? (
           community._id ? (
             <EventList id={community._id} joined={community.joined} />
@@ -160,7 +160,7 @@ function Community() {
           <span className="text-white">Join this community to view events</span>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

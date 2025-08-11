@@ -19,14 +19,14 @@ const Input = ({
         </label>
         {type === "textarea" ? (
           <textarea
-            className="text-white font-medium bg-[#222222] border-2 border-gray-400 p-1 rounded-md w-full h-32"
+            className="text-white font-medium border-1 border-gray-400 p-1 rounded-md w-full h-32"
             name={name}
             id={name}
             required={required}
           ></textarea>
         ) : (
           <input
-            className="text-white font-[helvetica] bg-[#222222]  border-2 border-gray-400 rounded-md p-1 w-5/6"
+            className="text-white font-[helvetica] border-1 border-gray-400 rounded-md p-1 w-5/6"
             type={type}
             name={name}
             id={name}

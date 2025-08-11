@@ -8,6 +8,8 @@ import timeFormat from "@/util/timeFormatter";
 import Error from "../../pages/Error";
 import { useAuth } from "@/contexts/AuthContext";
 
+import { FaCalendar } from "react-icons/fa";
+
 const EventList = ({ id, joined }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -124,43 +126,47 @@ const EventList = ({ id, joined }) => {
                 <a
                   key={event._id}
                   href={`/events/${event._id}`}
-                  className="flex flex-row text-white border-2 border-gray-400 rounded-lg w-1/2 p-5 my-1 justify-between"
+                  className="flex flex-row text-white bg-[#1d1f24] rounded-lg w-2/3 p-5 my-1 justify-between"
                 >
-                  <div className="flex flex-col">
-                    <span className="text-3xl font-bold">{event.name}</span>
-                    <span>{event.desc}</span>
-                    <span>
-                      {"Time: "}
-                      {timeFormat(event.time.start, event.time.end)}
-                    </span>
-                    <span className="text-white">
-                      {Array.isArray(event.participants)
-                        ? event.participants.length
-                        : 0}
-                      /{event.capacity || 0} joined
-                    </span>
+                  <div className="flex flex-row justify-between w-full">
+                    <div className="flex flex-col mx-2">
+                      <span className="text-3xl font-bold">{event.name}</span>
+                      <span>{event.desc}</span>
+                      <div className="flex items-center">
+                        <FaCalendar />
+                        <span className="flex items-center ms-2">
+                          {timeFormat(event.time.start, event.time.end)}
+                        </span>
+                      </div>
+                      <span className="text-white">
+                        {Array.isArray(event.participants)
+                          ? event.participants.length
+                          : 0}
+                        /{event.capacity || 0} joined
+                      </span>
+                    </div>
+                    {!event.joined &&
+                    event.participants.length < event.capacity ? (
+                      <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          handleOpenModal(event);
+                        }}
+                        name="Register"
+                      />
+                    ) : (
+                      <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          onLeave(event._id);
+                        }}
+                        name="Leave"
+                        red={true}
+                      />
+                    )}
                   </div>
-                  {!event.joined &&
-                  event.participants.length < event.capacity ? (
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        handleOpenModal(event);
-                      }}
-                      name="Register"
-                    />
-                  ) : (
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        onLeave(event._id);
-                      }}
-                      name="Leave"
-                      red={true}
-                    />
-                  )}
                 </a>
               );
             }
