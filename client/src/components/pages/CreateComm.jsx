@@ -69,7 +69,7 @@ function Create() {
               />
             </div>
             <div className="mt-5 w-full ">
-              <Button name="Create" onClick={onSubmit} className="w-full" />
+              <Button name="Create" className="w-full" />
             </div>
           </form>
         </div>

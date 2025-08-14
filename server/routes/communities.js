@@ -2,6 +2,7 @@ import express from "express";
 import db from "../db/connection.js";
 import { ObjectId } from "mongodb";
 import Community from "../models/Community.js";
+import User from "../models/User.js";
 
 const router = express.Router();
 
@@ -34,6 +35,26 @@ router.get("/search", async (req, res) => {
   }
 });
 
+router.get("/check-name", async (req, res) => {
+  const { name } = req.query;
+
+  try {
+    const exists = await Community.findOne({
+      name: { $regex: new RegExp(`^${name}$`, "i") },
+    });
+    if (exists) {
+      return res.json({ available: false });
+    } else {
+      return res.json({ available: true });
+    }
+  } catch (e) {
+    return res.status(500).json({
+      errorName: e.name,
+      message: e.message,
+    });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   console.log("/:id hit");
   try {
@@ -49,26 +70,6 @@ router.get("/:id", async (req, res) => {
     console.log(responseData.joined);
 
     res.status(200).json(responseData);
-  } catch (e) {
-    return res.status(500).json({
-      errorName: e.name,
-      message: e.message,
-    });
-  }
-});
-
-router.get("/check-name", async (req, res) => {
-  const { name } = req.query;
-
-  try {
-    const exists = await Community.findOne({
-      name: { $regex: new RegExp(`^${name}$`, "i") },
-    });
-    if (exists) {
-      return res.json({ available: false });
-    } else {
-      return res.json({ available: true });
-    }
   } catch (e) {
     return res.status(500).json({
       errorName: e.name,
@@ -96,6 +97,13 @@ router.post("/create", async (req, res) => {
       privacy: commInfo.privacy,
       creator: req.user._id,
     });
+
+    const user = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $push: { communities: community._id } },
+      { new: true }
+    );
+
     console.log("Insertion successful");
     res.status(200).json(community);
   } catch (e) {

@@ -36,7 +36,7 @@ const Event = () => {
     const fetchEvent = async () => {
       try {
         const data = await fetchAPI(`/events/${id}`);
-        console.log(data.participants);
+        console.log(data.joined);
         setEvent(data);
       } catch (e) {
         console.error(e);
@@ -54,9 +54,6 @@ const Event = () => {
 
   const onJoin = async (data) => {
     try {
-      const data = await fetchAPI(`/events/register/${id}`, {
-        method: "POST",
-      });
       setEvent((prev) => {
         const updatedParticipants = [...event.participants, data.participant];
         return {
@@ -118,7 +115,7 @@ const Event = () => {
             {event.capacity || 0} joined
           </span>
           <div className="flex flex-row mt-4">
-            {!event.joined && event.participants.length < event.capacity ? (
+            {!event.joined ? (
               <Button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -149,7 +146,7 @@ const Event = () => {
             />
           </div>
         </div>
-        <div className="flex justify-end mx-5 p-5">
+        <div className="flex justify-end p-5">
           <MemberList participants={event.participants} />
         </div>
       </div>

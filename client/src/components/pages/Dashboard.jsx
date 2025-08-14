@@ -1,11 +1,51 @@
 import React from "react";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
+  const [communities, setCommunities] = useState([
+    {
+      name: "",
+      desc: "",
+      members: [],
+      capacity: 0,
+      admins: [],
+      privacy: false,
+    },
+  ]);
+
+  const [events, setEvents] = useState([
+    {
+      name: "",
+      desc: "",
+      capacity: 0,
+      roles: [],
+      time: {},
+      join_type: "",
+      participants: [],
+      community: "",
+    },
+  ]);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchCommunities = async () => {
+      try {
+        const data = await fetchAPI(`/communities/${id}`);
+        setCommunities(data);
+      } catch (e) {
+        console.error(e);
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCommunities();
+  }, [id, userID]);
+
   return (
     <>
       <div class="flex h-screen text-white">
         <aside class="w-64 p-4 fixed h-full overflow-y-auto">
-          <div class="text-2xl font-bold mb-6">Dashboard</div>
           <nav class="space-y-4">
             <div>
               <h3 class="text-gray-400 uppercase tracking-wide text-xs font-bold mb-2">
@@ -51,15 +91,8 @@ export default function Dashboard() {
         </aside>
 
         <main class="flex-1 p-6 md:ml-64">
-          <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-[#1d1f24] p-6 rounded-lg shadow-lg">Card 1</div>
-            <div class="bg-[#1d1f24] p-6 rounded-lg shadow-lg">Card 2</div>
-            <div class="bg-[#1d1f24] p-6 rounded-lg shadow-lg">Card 3</div>
-          </section>
-
-          <div class="mt-6 p-6 bg-[#1d1f24] rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold mb-4">Detailed Information</h2>
-            <p>This is where more detailed content or tables would go.</p>
+          <div class="p-6 bg-[#1d1f24] rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4">Upcoming Events</h2>
           </div>
         </main>
       </div>

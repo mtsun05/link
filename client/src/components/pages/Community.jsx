@@ -77,10 +77,10 @@ function Community() {
         return {
           ...prev,
           members: community.members.filter(
-            (p) => p.toString() !== userID.toString()
+            (p) => p._id.toString() !== userID.toString()
           ),
           admins: community.admins.filter(
-            (p) => p.toString() !== userID.toString()
+            (p) => p._id.toString() !== userID.toString()
           ),
           joined: false,
         };

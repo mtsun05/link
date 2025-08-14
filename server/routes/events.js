@@ -4,6 +4,7 @@ import "../services/passport.js";
 import db from "../db/connection.js";
 
 import Event from "../models/Event.js";
+import Community from "../models/Community.js";
 
 const router = express.Router();
 
@@ -32,7 +33,7 @@ router.get("/community/:id", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const result = await Event.findOne({ _id: req.params.id })
-      .populate("participants.user")
+      .populate("participants")
       .populate("community")
       .exec();
 
@@ -68,6 +69,12 @@ router.post("/create", async (req, res) => {
       time: eventInfo.time,
       community: eventInfo.community,
     });
+
+    const community = await Community.findOneAndUpdate(
+      { _id: event.community },
+      { $push: { events: event._id } },
+      { new: true }
+    );
 
     res.status(200).json(event);
   } catch (e) {

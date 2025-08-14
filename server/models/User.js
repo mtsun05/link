@@ -7,6 +7,7 @@ const userSchema = new Schema({
   email: String,
   password: String,
   communities: [{ type: mongoose.Schema.Types.ObjectId }],
+  events: [{ type: mongoose.Schema.Types.ObjectId }],
   admins: [{ type: mongoose.Schema.Types.ObjectId }],
   bio: String,
 });

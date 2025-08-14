@@ -34,8 +34,6 @@ const fetchAPI = async (endpoint, options = {}) => {
       data = await response.text().catch(() => null);
     }
 
-    console.log("Fetched data: ", data);
-
     if (!response.ok) {
       const message =
         data?.message ||
