@@ -6,6 +6,7 @@ const Input = ({
   type = "text",
   required = false,
   onChange = () => {},
+  placeholder,
 }) => {
   return (
     <>
@@ -19,18 +20,20 @@ const Input = ({
         </label>
         {type === "textarea" ? (
           <textarea
-            className="text-white font-medium border-1 border-gray-400 p-1 rounded-md w-full h-32"
+            className="text-white font-medium border-1 border-gray-400 p-2 rounded-md w-full h-32"
             name={name}
             id={name}
             required={required}
+            placeholder={placeholder}
           ></textarea>
         ) : (
           <input
-            className="text-white font-[helvetica] border-1 border-gray-400 rounded-md p-1 w-5/6"
+            className="text-white font-[helvetica] border-1 border-gray-400 rounded-md p-2 w-full"
             type={type}
             name={name}
             id={name}
             required={required}
+            placeholder={placeholder}
             onChange={(e) => {
               onChange(e.target.value);
             }}

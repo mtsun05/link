@@ -4,7 +4,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
   TextField,
   FormControl,
   InputLabel,
@@ -17,6 +16,7 @@ import {
 import fetchAPI from "../../../api/fetchAPI";
 import Input from "../inputs/Input";
 import Dropdown from "../inputs/Dropdown";
+import Button from "../buttons/Button";
 
 const RegisterModal = ({
   open,
@@ -33,11 +33,6 @@ const RegisterModal = ({
   const [answers, setAnswers] = useState(
     Array(questions && questions.length).fill("")
   );
-
-  const values = availableRoles.map((role) => ({
-    name: role.toLowerCase(),
-    label: role,
-  }));
 
   const handleDropdownChange = (newValue) => {
     setPreferredRole(newValue);
@@ -95,16 +90,16 @@ const RegisterModal = ({
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle sx={{ backgroundColor: "#1E1E1E", color: "white" }}>
+      <DialogTitle sx={{ backgroundColor: "#1d1f24", color: "white" }}>
         Register for "{eventName}"
       </DialogTitle>
-      <DialogContent sx={{ backgroundColor: "#1E1E1E", color: "white", pt: 2 }}>
+      <DialogContent sx={{ backgroundColor: "#1d1f24", color: "white", pt: 2 }}>
         <Input name="name" labelName="Name:" required={true} />
         {availableRoles && availableRoles.length > 0 && (
           <Dropdown
             label="Preferred Role:"
             name="role"
-            values={values}
+            values={availableRoles}
             onSelectionChange={handleDropdownChange}
           />
         )}
@@ -129,24 +124,17 @@ const RegisterModal = ({
         )}
       </DialogContent>
       <DialogActions
-        sx={{ backgroundColor: "#1E1E1E", borderTop: "1px solid #333" }}
+        sx={{
+          backgroundColor: "#1d1f24",
+          borderTop: "1px solid #333",
+        }}
       >
-        <Button
-          onClick={onClose}
-          disabled={loading}
-          sx={{ color: "gray", "&:hover": { color: "white" } }}
-        >
+        <Button onClick={onClose} disabled={loading}>
           Cancel
         </Button>
         <Button
           onClick={handleRegister}
           disabled={loading || (availableRoles.length > 0 && !preferredRole)}
-          variant="contained"
-          sx={{
-            backgroundColor: "#4B5563",
-            color: "white",
-            "&:hover": { backgroundColor: "#6B7280" },
-          }}
         >
           {loading ? "Registering..." : "Register"}
         </Button>

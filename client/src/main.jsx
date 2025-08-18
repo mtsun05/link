@@ -25,10 +25,12 @@ import { authLoader } from "./loaders/AuthLoader";
 
 const Layout = () => {
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Navbar />
-      <Outlet />
-    </>
+      <div className="flex-1 overflow-y-auto">
+        <Outlet />
+      </div>
+    </div>
   );
 };
 
@@ -36,10 +38,12 @@ const ProtectedLayout = () => {
   const user = useLoaderData();
 
   return (
-    <>
+    <div className="h-screen">
       <Navbar user={user} />
-      <Outlet />
-    </>
+      <div className="flex-1 overflow-y-auto">
+        <Outlet />
+      </div>
+    </div>
   );
 };
 

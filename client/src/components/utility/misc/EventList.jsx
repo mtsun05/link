@@ -126,7 +126,7 @@ const EventList = ({ id, joined }) => {
                 <a
                   key={event._id}
                   href={`/events/${event._id}`}
-                  className="flex flex-row text-white bg-[#1d1f24] rounded-lg w-2/3 p-5 my-1 justify-between"
+                  className="flex flex-row text-white bg-[#1d1f24] hover:ring ring-gray-400 rounded-lg w-full p-5 my-1 justify-between  transition duration-200 ease-in-out"
                 >
                   <div className="flex flex-row justify-between w-full">
                     <div className="flex flex-col mx-2">
@@ -154,7 +154,9 @@ const EventList = ({ id, joined }) => {
                           handleOpenModal(event);
                         }}
                         name="Register"
-                      />
+                      >
+                        Register
+                      </Button>
                     ) : (
                       <Button
                         onClick={(e) => {
@@ -164,7 +166,9 @@ const EventList = ({ id, joined }) => {
                         }}
                         name="Leave"
                         red={true}
-                      />
+                      >
+                        Leave
+                      </Button>
                     )}
                   </div>
                 </a>
@@ -182,7 +186,6 @@ const EventList = ({ id, joined }) => {
             questions={modalSelection.questions}
           />
         )}
-        ;
       </div>
     </>
   );

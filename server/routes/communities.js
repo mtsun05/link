@@ -67,7 +67,7 @@ router.get("/:id", async (req, res) => {
     responseData.joined = result.members.some(
       (member) => member._id.toString() == req.user._id
     );
-    console.log(responseData.joined);
+    console.log(responseData.admins);
 
     res.status(200).json(responseData);
   } catch (e) {
@@ -122,18 +122,21 @@ router.post("/join/:id", async (req, res) => {
   try {
     const result = await Community.findOne({ _id: req.params.id })
       .populate("members")
+      .populate("admins")
       .exec();
     if (
       result.members.some((member) => member._id.toString() == req.user._id)
     ) {
       return res.status(409).send("User already in community");
     } else {
+      const finalData = { member: req.user._id };
       if (result.members.length == 0) {
         result.admins.push(req.user._id);
+        finalData.admin = req.user._id;
       }
       result.members.push(req.user._id);
       await result.save();
-      return res.json({ member: req.user._id });
+      return res.json(finalData);
     }
   } catch (e) {
     return res.status(500).json({
@@ -157,9 +160,13 @@ router.post("/leave/:id", async (req, res) => {
       { new: true }
     );
     console.log("Successfully left");
+    const responseData = updatedCommunity.toObject();
+    responseData.joined = updatedCommunity.members.some(
+      (person) => person._id.toString() == req.user._id
+    );
     return res.json({
       message: "Successful",
-      community: updatedCommunity,
+      community: responseData,
     });
   } catch (e) {
     return res.status(500).json({

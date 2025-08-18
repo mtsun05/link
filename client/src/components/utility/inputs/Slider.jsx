@@ -11,10 +11,10 @@ export default function DiscreteSlider({ name, label, min, max }) {
   return (
     <Box
       sx={{
+        my: 2,
         width: 220,
         "& .MuiInputLabel-root": { color: "white" },
         color: "#9CA3AF",
-        margin: "8px",
       }}
     >
       <InputLabel className="text-white">{label}</InputLabel>

@@ -24,7 +24,7 @@ function CommunityNameInput({ initialName = "" }) {
 
     try {
       const data = await fetchAPI(
-        `/communities/check-name?name=${encodeURIComponent(name)}`
+        `/communities/check-name?name=${encodeURIComponent(name.trim())}`
       );
       setIsNameAvailable(data.available);
     } catch (e) {
@@ -66,7 +66,7 @@ function CommunityNameInput({ initialName = "" }) {
         value={communityName}
         onChange={handleChange}
         name="name"
-        className="text-white font-[helvetica] rounded-md p-1 w-full border-1 border-gray-400"
+        className="text-white font-[helvetica] rounded-md p-2 w-full border-1 border-gray-400"
         required
       />
       {loading && <p>Checking availability...</p>}

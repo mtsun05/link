@@ -122,8 +122,9 @@ const Event = () => {
                   e.preventDefault();
                   handleOpenModal(event);
                 }}
-                name="Register"
-              />
+              >
+                Register
+              </Button>
             ) : (
               <Button
                 onClick={(e) => {
@@ -133,7 +134,9 @@ const Event = () => {
                 }}
                 name="Leave"
                 red={true}
-              />
+              >
+                Leave
+              </Button>
             )}
             <RegisterModal
               open={isModalOpen}

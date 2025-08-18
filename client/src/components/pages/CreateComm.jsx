@@ -45,13 +45,13 @@ function Create() {
   };
   return (
     <>
-      <div className="flex flex-col items-center m-5 size-full">
-        <span className="m-8 text-center text-5xl/9 font-bold tracking-tight text-slate-100">
+      <div className="flex flex-col items-center m-5 w-1/3 mx-auto">
+        <span className="m-8 text-center text-5xl font-bold tracking-tight text-slate-100">
           Create your community
         </span>
-        <div className="text-slate-100 font-[helvetica] bg-[#1d1f24] rounded-lg w-fit pb-5">
-          <form className="flex flex-col px-7 py-4" onSubmit={onSubmit}>
-            <div className="flex flex-col p-5 items-start">
+        <div className="text-white font-[helvetica] bg-[#1d1f24] rounded-lg w-full px-15 py-10">
+          <form className="flex flex-col" onSubmit={onSubmit}>
+            <div className="flex flex-col items-start">
               <CommunityNameInput />
 
               <Toggle label="Privacy" onToggle={onToggle} on={on} />
@@ -69,7 +69,7 @@ function Create() {
               />
             </div>
             <div className="mt-5 w-full ">
-              <Button name="Create" className="w-full" />
+              <Button className="w-full">Create</Button>
             </div>
           </form>
         </div>

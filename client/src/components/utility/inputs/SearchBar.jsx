@@ -51,7 +51,7 @@ function CommunitySearchBar() {
   };
 
   return (
-    <Box sx={{ p: 2, maxWidth: 600, mx: "auto" }}>
+    <Box sx={{ p: 2, width: "100%" }}>
       <TextField
         fullWidth
         label="Search Communities"
@@ -65,6 +65,7 @@ function CommunitySearchBar() {
             "& fieldset": { borderColor: "gray" },
             "&:hover fieldset": { borderColor: "white" },
             "&.Mui-focused fieldset": { borderColor: "white" },
+            borderRadius: "10px",
           },
         }}
       />

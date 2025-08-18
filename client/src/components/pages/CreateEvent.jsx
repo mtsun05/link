@@ -11,9 +11,6 @@ import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Box, TextField } from "@mui/material";
-import { DateTime } from "luxon";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 
 const CreateEvent = () => {
   const { id } = useParams();
@@ -86,7 +83,7 @@ const CreateEvent = () => {
         method: "POST",
         body: JSON.stringify(eventInfo),
       });
-      navigate(`/events/${data._id}`);
+      navigate(`/communities/${id}`);
     } catch (e) {
       console.error(e.message);
       navigate(`/`);
@@ -192,7 +189,7 @@ const CreateEvent = () => {
                     />
                   </Box>
 
-                  <Box sx={{ mt: 2, width: "100%" }}>
+                  <Box sx={{ mt: 2 }}>
                     <DateTimePicker
                       label="End Date & Time"
                       value={endDate}

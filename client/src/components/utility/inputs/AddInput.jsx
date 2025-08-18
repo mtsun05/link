@@ -26,7 +26,7 @@ const AddInput = ({ name, values, setValues }) => {
 
   return (
     <>
-      <div className="m-2 w-full">
+      <div className="my-2 w-full">
         <label
           className="block text-md font-medium text-slate-100"
           htmlFor="new-value-input"
@@ -56,7 +56,7 @@ const AddInput = ({ name, values, setValues }) => {
           {values.map((value) => (
             <span
               key={value}
-              className="bg-indigo-600 text-white text-sm px-3 py-1 rounded-md flex items-center m-1"
+              className="bg-indigo-600 text-white text-sm px-3 py-1 rounded-md flex items-center mr-1"
             >
               {value}
               <button

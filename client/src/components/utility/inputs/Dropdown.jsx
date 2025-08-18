@@ -16,7 +16,7 @@ export default function Dropdown({ label, name, values, onSelectionChange }) {
     <FormControl
       className="text-white"
       sx={{
-        m: 1,
+        my: 2,
         minWidth: 120,
         "& .MuiInputLabel-root": { color: "#FFFFFF" },
         "& .MuiOutlinedInput-notchedOutline": { borderColor: "#9CA3AF" },
@@ -69,8 +69,8 @@ export default function Dropdown({ label, name, values, onSelectionChange }) {
         {values &&
           values.map((value) => {
             return (
-              <MenuItem key={value.name} value={value.name}>
-                {value.label}
+              <MenuItem key={value} value={value}>
+                {value}
               </MenuItem>
             );
           })}

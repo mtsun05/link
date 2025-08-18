@@ -73,6 +73,8 @@ export default function ProfileButton({ user }) {
                 color: "#ffffff",
                 boxShadow: "0px 2px 8px rgba(0,0,0,0.32)",
                 "& .MuiMenuItem-root": {
+                  fontFamily: "Roboto, sans-serif",
+                  transition: "background-color 0.2s ease-in-out",
                   "&:hover": {
                     bgcolor: "rgba(255, 255, 255, 0.08)",
                   },

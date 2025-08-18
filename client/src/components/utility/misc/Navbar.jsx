@@ -11,10 +11,10 @@ export default function Navbar() {
     setLoggedIn(!!user);
   }, []);
   return (
-    <div className="mb-8">
-      <nav className="flex justify-between items-center mb-3">
+    <>
+      <nav className="bg-[#0d0e10]/95 flex justify-between items-center p-4 shadow-lg shadow-gray-500/30">
         <NavLink to="/">
-          <img className="m-3 h-10 inline" src={lightlogo}></img>
+          <img className="h-10 inline" src={lightlogo}></img>
         </NavLink>
         {loggedIn ? (
           <ProfileButton user={user} />
@@ -27,7 +27,6 @@ export default function Navbar() {
           </NavLink>
         )}
       </nav>
-      <HDivider />
-    </div>
+    </>
   );
 }

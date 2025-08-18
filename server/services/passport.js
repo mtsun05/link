@@ -4,13 +4,11 @@ import mongoose from "mongoose";
 import User from "../models/User.js";
 
 passport.serializeUser((user, done) => {
-  console.log("serialize: ", user);
   done(null, user._id);
 });
 
 passport.deserializeUser((id, done) => {
   User.findById(id).then((user) => {
-    console.log("deserialize: ", user);
     done(null, user);
   });
 });
